@@ -318,7 +318,7 @@ FUNCTION preorderTraversal(node)
    ```
 2. **Run the executable:**
    ```
-   ./BINARY_TREE
+   ./TREE
    ```
 3. **Observe the preorder traversal output for test cases.**
 
