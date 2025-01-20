@@ -181,12 +181,129 @@ FUNCTION preorderTraversal(node)
 ```
 0 1 3 4 2
 ```
+---
+
+### Test Case 6
+**Input Matrix:**
+```
+0 1 0 0 0
+0 0 0 0 1
+0 0 0 1 0
+0 0 0 0 0
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+        \
+         1
+          \
+           4
+```
+**Preorder Output:**
+```
+0 1 4
+```
 
 ---
 
-*(Similarly, add the remaining test cases 6-10 in the same format)*
+### Test Case 7
+**Input Matrix:**
+```
+0 1 1 0 0
+0 0 0 0 0
+0 0 0 1 0
+0 0 0 0 1
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+      / \
+     1   2
+          \
+           3
+            \
+             4
+```
+**Preorder Output:**
+```
+0 1 2 3 4
+```
 
 ---
+
+### Test Case 8
+**Input Matrix:**
+```
+0 1 0 0 0
+0 0 1 0 0
+0 0 0 0 0
+0 0 0 0 1
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+        \
+         1
+          \
+           2
+```
+**Preorder Output:**
+```
+0 1 2
+```
+
+---
+
+### Test Case 9
+**Input Matrix:**
+```
+0 1 1 0 0
+0 0 0 0 1
+0 0 0 1 0
+0 0 0 0 0
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+      / \
+     1   2
+        /
+       3
+```
+**Preorder Output:**
+```
+0 1 2 3
+```
+
+---
+
+### Test Case 10
+**Input Matrix:**
+```
+0 1 0 0 0
+0 0 0 0 0
+0 0 1 0 0
+0 0 0 0 1
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+        \
+         1
+          \
+           2
+            \
+             4
+```
+**Preorder Output:**
+```
+0 1 2 4
+```
 
 ## Complexity Analysis
 
@@ -204,4 +321,5 @@ FUNCTION preorderTraversal(node)
    ./BINARY_TREE
    ```
 3. **Observe the preorder traversal output for test cases.**
+
 
