@@ -1,5 +1,5 @@
 # Tên tệp thực thi
-TARGET = BINARY_TREE
+TARGET = TREE
 
 # Thư mục chứa tệp nguồn và header
 SRC_DIR = src

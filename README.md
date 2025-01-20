@@ -1,111 +1,207 @@
-# README
+# Constructing a Binary Tree from an Ancestor Matrix
 
-## Constructing a Binary Tree from Inorder and Postorder Traversals
+## Overview
+Given an **ancestor matrix**, our goal is to construct the corresponding binary tree and print its preorder traversal.
 
-### Problem Description
-Given two sequences representing the inorder and postorder traversals of a binary tree, the goal is to reconstruct the original binary tree and print its preorder traversal.
+### Ancestor Matrix Definition
+An ancestor matrix is a square matrix where:
+- `matrix[i][j] = 1` indicates that node `i` is an ancestor of node `j`.
+- `matrix[i][j] = 0` otherwise.
 
-### Solution Approach
-The solution involves recursively building the binary tree using the properties of inorder and postorder traversals.
+## Solution Approach
+### Steps to Construct the Tree
+1. **Identify root node:**
+   - A node with no ancestors (all zeros in its column) is the root.
 
-### Algorithm Overview
+2. **Construct child-parent relationships:**
+   - Traverse through the matrix to identify parent-child connections.
 
-1. **Identify the root node:**
-   - The last element in the postorder traversal is the root of the tree.
+3. **Build the tree structure:**
+   - Use recursive or iterative approaches to link nodes accordingly.
 
-2. **Locate the root in the inorder sequence:**
-   - The position of the root in the inorder sequence divides the elements into left and right subtrees.
+4. **Print the tree in preorder:**
+   - Visit root node, left subtree, then right subtree.
 
-3. **Recursively construct the left and right subtrees:**
-   - Use the elements before the root's position in the inorder sequence for the left subtree.
-   - Use the elements after the root's position for the right subtree.
-
-4. **Continue the process until the entire tree is constructed.**
-
-### Detailed Algorithm (Pseudocode)
+### Algorithm Pseudocode
 
 ```
-FUNCTION buildTree(inorder, postorder, inStart, inEnd, postIndex)
-    IF inStart > inEnd:
-        RETURN NULL
+FUNCTION constructTreeFromAncestorMatrix(matrix, size)
+    CREATE parent[size] array initialized to 0
+    CREATE nodes[size] array
 
-    rootVal <- postorder[postIndex]
-    root <- createNode(rootVal)
-    postIndex <- postIndex - 1
+    FOR i FROM 0 TO size-1
+        nodes[i] <- CREATE node(i)
 
-    rootPosition <- findIndex(inorder, inStart, inEnd, rootVal)
+    FOR i FROM 0 TO size-1
+        FOR j FROM 0 TO size-1
+            IF matrix[i][j] == 1
+                parent[j] <- 1
 
-    // Build right subtree first (postorder processing order)
-    root.right <- buildTree(inorder, postorder, rootPosition + 1, inEnd, postIndex)
-    root.left <- buildTree(inorder, postorder, inStart, rootPosition - 1, postIndex)
+    root <- NULL
+    FOR i FROM 0 TO size-1
+        IF parent[i] == 0
+            root <- nodes[i]
+
+    FOR i FROM 0 TO size-1
+        FOR j FROM 0 TO size-1
+            IF matrix[i][j] == 1
+                IF nodes[i].left IS NULL
+                    nodes[i].left <- nodes[j]
+                ELSE
+                    nodes[i].right <- nodes[j]
 
     RETURN root
 
-FUNCTION findIndex(arr, start, end, value)
-    FOR i FROM start TO end
-        IF arr[i] == value
-            RETURN i
-    RETURN -1
-
-FUNCTION printPreorder(root)
-    IF root IS NULL
+FUNCTION preorderTraversal(node)
+    IF node IS NULL
         RETURN
-    PRINT root.val
-    printPreorder(root.left)
-    printPreorder(root.right)
+    PRINT node.val
+    preorderTraversal(node.left)
+    preorderTraversal(node.right)
 ```
 
-### Example Walkthrough
+## Input and Output
 
-#### Input:
+### Test Case 1
+**Input Matrix:**
 ```
-Inorder   : [4, 2, 5, 1, 6, 3, 7]
-Postorder : [4, 5, 2, 6, 7, 3, 1]
+0 1 1 0 0
+0 0 0 0 0
+0 0 0 1 1
+0 0 0 0 0
+0 0 0 0 0
 ```
-
-#### Step-by-Step Execution:
+**Tree Structure:**
 ```
-1. Root from postorder: 1
-   Left subtree: [4, 2, 5]
-   Right subtree: [6, 3, 7]
-
-2. Process right subtree:
-   Root: 3
-   Left subtree: [6]
-   Right subtree: [7]
-
-3. Process left subtree:
-   Root: 2
-   Left subtree: [4]
-   Right subtree: [5]
+       0
+      / \
+     1   2
+        / \
+       3   4
 ```
-
-#### Expected Output (Preorder):
+**Preorder Output:**
 ```
-1 2 4 5 3 6 7
+0 1 2 3 4
 ```
-
-### Complexity Analysis
-
-- **Time Complexity:** O(n), where n is the number of nodes (each node is processed once).
-- **Space Complexity:** O(n), for recursive stack and storage of the tree.
-
-### Usage Instructions
-
-1. Compile the code using:
-   ```
-   make
-   ```
-
-2. Run the binary:
-   ```
-   ./BINARY_TREE
-   ```
-
-3. Observe the preorder traversal output for test cases.
 
 ---
 
-Author: Trương Quốc Ánh
-Date: 2025-01-20
+### Test Case 2
+**Input Matrix:**
+```
+0 1 1 0 0
+0 0 0 0 1
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+      / \
+     1   2
+      \
+       4
+```
+**Preorder Output:**
+```
+0 1 4 2
+```
+
+---
+
+### Test Case 3
+**Input Matrix:**
+```
+0 1 0 0 0
+0 0 1 0 0
+0 0 0 1 0
+0 0 0 0 1
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+        \
+         1
+          \
+           2
+            \
+             3
+              \
+               4
+```
+**Preorder Output:**
+```
+0 1 2 3 4
+```
+
+---
+
+### Test Case 4
+**Input Matrix:**
+```
+0 1 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 1
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+      /
+     1
+```
+**Preorder Output:**
+```
+0 1
+```
+
+---
+
+### Test Case 5
+**Input Matrix:**
+```
+0 1 1 0 0
+0 0 0 1 1
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+```
+**Tree Structure:**
+```
+       0
+      / \
+     1   2
+    / \
+   3   4
+```
+**Preorder Output:**
+```
+0 1 3 4 2
+```
+
+---
+
+*(Similarly, add the remaining test cases 6-10 in the same format)*
+
+---
+
+## Complexity Analysis
+
+- **Time Complexity:** `O(n^2)` due to matrix traversal.
+- **Space Complexity:** `O(n)` for storing nodes.
+
+## How to Run the Program
+
+1. **Compile the code using:**
+   ```
+   make
+   ```
+2. **Run the executable:**
+   ```
+   ./BINARY_TREE
+   ```
+3. **Observe the preorder traversal output for test cases.**
 
